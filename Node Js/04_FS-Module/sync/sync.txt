@@ -1,0 +1,2 @@
+write initial data
+append a new data
