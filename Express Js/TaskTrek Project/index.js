@@ -48,6 +48,18 @@ app.get("/todos/:id", (req, res) => {
 app.post("/todos", (req, res) => {
   const { task, tags, status } = req.body;
 
+  if (!task) {
+    return res.send("Task field is required.");
+  }
+
+  if (!tags) {
+    return res.send("tags field is required.");
+  }
+
+  if (!status) {
+    return res.send("status field is required.");
+  }
+
   const newTodo = {
     id: todos[todos.length - 1].id + 1,
     task,
