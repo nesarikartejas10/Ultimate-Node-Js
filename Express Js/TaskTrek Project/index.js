@@ -33,7 +33,7 @@ app.get("/", (req, res) => {
 
 //fetch all todos
 app.get("/todos", (req, res) => {
-  res.send(todos);
+  res.json(todos);
 });
 
 //get single todo
@@ -41,7 +41,7 @@ app.get("/todos/:id", (req, res) => {
   const todoId = parseInt(req.params.id);
 
   const todo = todos.find((todo) => todo.id === todoId);
-  res.send(todo);
+  res.json(todo);
 });
 
 //Create a new todo
@@ -49,15 +49,15 @@ app.post("/todos", (req, res) => {
   const { task, tags, status } = req.body;
 
   if (!task) {
-    return res.send("Task field is required.");
+    return res.status(400).json({ message: "Task field is required." });
   }
 
   if (!tags) {
-    return res.send("tags field is required.");
+    return res.status(400).json({ message: "tags field is required." });
   }
 
   if (!status) {
-    return res.send("status field is required.");
+    return res.status(400).json({ message: "status field is required." });
   }
 
   const newTodo = {
@@ -68,7 +68,7 @@ app.post("/todos", (req, res) => {
   };
 
   todos.push(newTodo);
-  res.send(newTodo);
+  res.status(201).json(newTodo);
 });
 
 const PORT = process.env.PORT || 3000;
