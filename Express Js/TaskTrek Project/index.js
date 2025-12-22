@@ -34,6 +34,14 @@ app.get("/todos", (req, res) => {
   res.send(todos);
 });
 
+//get single todo
+app.get("/todos/:id", (req, res) => {
+  const todoId = parseInt(req.params.id);
+
+  const todo = todos.find((todo) => todo.id === todoId);
+  res.send(todo);
+});
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
