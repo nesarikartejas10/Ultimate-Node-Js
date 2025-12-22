@@ -71,6 +71,31 @@ app.post("/todos", (req, res) => {
   res.status(201).json(newTodo);
 });
 
+//update todo
+app.put("/todos/:id", (req, res) => {
+  const todoId = parseInt(req.params.id);
+  const { task, tags, status } = req.body;
+
+  const todoIndex = todos.findIndex((todo) => todo.id === todoId);
+
+  if (todoIndex === -1) {
+    return res.status(404).json({ message: "todo not found." });
+  }
+
+  if (task) {
+    todos[todoIndex].task = task;
+  }
+
+  if (tags) {
+    todos[todoIndex].tags = tags;
+  }
+
+  if (status) {
+    todos[todoIndex].status = status;
+  }
+
+  res.status(200).json(todos[todoIndex]);
+});
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
