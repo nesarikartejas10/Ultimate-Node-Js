@@ -1,3 +1,13 @@
+// Different Settings for Each ENV
+const envFilePath =
+  process.env.NODE_ENV === "production"
+    ? ".env.production"
+    : ".env.development";
+
+import dotenv from "dotenv";
+dotenv.config({
+  path: envFilePath,
+});
 import express from "express";
 import morgan from "morgan";
 import helmet from "helmet";
@@ -88,6 +98,6 @@ app.post("/todos", (req, res) => {
   res.status(201).json(newTodo);
 });
 
-app.listen(3000, () => {
+app.listen(process.env.PORT, () => {
   console.log("server is listening on http://localhost:3000");
 });
