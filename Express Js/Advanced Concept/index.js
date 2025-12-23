@@ -1,10 +1,6 @@
-<<<<<<< HEAD
-import express, { urlencoded } from "express";
-=======
 import express from "express";
 import morgan from "morgan";
 import helmet from "helmet";
->>>>>>> 77be7a2 (static, morgan & helmet middleware)
 
 const app = express();
 
@@ -29,11 +25,8 @@ const todos = [
   },
 ];
 
-<<<<<<< HEAD
-//Built-in middleware
-app.use(express.json());
-app.use(urlencoded({ extended: true }));
-=======
+
+
 //Third-party middleware
 app.use(morgan("dev"));
 app.use(helmet());
@@ -43,7 +36,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public")); //http://localhost:3000/
 app.use("/profile", express.static("assets")); //here we use prefix http://localhost:3000/profile/
->>>>>>> 77be7a2 (static, morgan & helmet middleware)
 
 //custom middleware
 app.use((req, res, next) => {
@@ -57,10 +49,7 @@ app.get("/", (req, res) => {
 
 //fetch all todos
 app.get("/todos", (req, res) => {
-<<<<<<< HEAD
-=======
   console.log(res.getHeaders());
->>>>>>> 77be7a2 (static, morgan & helmet middleware)
   res.json(todos);
 });
 
