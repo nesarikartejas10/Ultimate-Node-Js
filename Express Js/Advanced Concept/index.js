@@ -25,10 +25,18 @@ const todos = [
   },
 ];
 
-
+//How to code according to environment
+//check node environments
+console.log(process.env.NODE_ENV); //undefined
+console.log(app.get("env")); //development
 
 //Third-party middleware
-app.use(morgan("dev"));
+
+if (app.get("env") === "development") {
+  app.use(morgan("dev")); // morgon use only in dev
+  console.log("morgan added");
+}
+
 app.use(helmet());
 
 //Built-in middleware
