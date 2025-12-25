@@ -19,10 +19,18 @@ const userSchema = new mongoose.Schema({
 //creating mongodb model
 const User = mongoose.model("User", userSchema);
 
-const newUser = new User({
-  name: "Tejas Nesarikar",
-  email: "tejas@gmail.com",
-  password: "abc@123",
-  phone: 9876543210,
-  hobbies: ["Cricket", "Movies", "Trekking"],
-});
+//create user
+async function createUser() {
+  const newUser = new User({
+    name: "Tejas Nesarikar",
+    email: "tejas@gmail.com",
+    password: "abc@123",
+    phone: 9876543210,
+    hobbies: ["Cricket", "Movies", "Trekking"],
+  });
+
+  const storeUserData = await newUser.save();
+  console.log(storeUserData);
+}
+
+createUser();
