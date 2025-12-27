@@ -22,15 +22,59 @@ const User = mongoose.model("User", userSchema);
 //create user
 async function createUser() {
   const newUser = new User({
-    name: "Tejas Nesarikar",
-    email: "tejas@gmail.com",
-    password: "abc@123",
-    phone: 9876543210,
-    hobbies: ["Cricket", "Movies", "Trekking"],
+    name: "Prasad Patil",
+    email: "prasad@gmail.com",
+    password: "def@123",
+    phone: 9856449210,
+    hobbies: ["Reading", "Tracking", "football"],
   });
 
   const storeUserData = await newUser.save();
-  console.log(storeUserData);
+}
+// createUser();
+
+//fetch all users
+async function getUsers() {
+  const users = await User.find();
+  console.log(users);
+}
+// getUsers();
+
+//fetch by specific field
+async function fetchUsersBasedOnField() {
+  const users = await User.find({ name: "Tejas Nesarikar" });
+  console.log(users);
 }
 
-createUser();
+// fetchUsersBasedOnField();
+
+//get specific field
+async function getSpecificField() {
+  // const users = await User.find({ name: "Tejas Nesarikar" }).select(
+  //   "name hobbies"
+  // );
+
+  // or Remove specific field
+  const users = await User.find({ name: "Tejas Nesarikar" }).select(
+    "-password"
+  );
+  console.log(users);
+}
+
+// getSpecificField();
+
+//limit and skip
+async function fetchSpecificDocument() {
+  const users = await User.find().limit(2).skip(2);
+  console.log(users);
+}
+
+// fetchSpecificDocument();
+
+//sort data
+async function sorting() {
+  const users = await User.find().sort({ name: 1 }); //1-for ascending and -1 for descending
+  console.log(users);
+}
+
+sorting();
