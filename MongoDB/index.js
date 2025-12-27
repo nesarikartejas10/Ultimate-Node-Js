@@ -94,4 +94,33 @@ async function fetchDataByAge() {
   console.log(users);
 }
 
-fetchDataByAge();
+// fetchDataByAge();
+
+//Logical Operator ($or, $and, $nor, $not)
+async function logicalOperator() {
+  //1.$or=>if any one condition match return data
+  // const users = await User.find({
+  //   $or: [{ age: 30 }, { name: "Prasad Patil" }],
+  // });
+
+  //2.$and=>if all conditions match return data
+  // const users = await User.find({
+  //   $and: [{ age: 33 }, { name: "Prachi Patil" }],
+  // });
+
+  //or
+  // const users = await User.find({ age: 33, name: "Prachi Patil" });
+
+  //3.$nor=>return documents that fail to match all of the specified conditions
+  // const users = await User.find({
+  //   $nor: [{ age: 30 }, { name: "Prasad Patil" }],
+  // });
+
+  //4.$not=> not operator works with comparison operator and regular expression
+
+  // e.g=>whose age is not equal to 30
+  const users = await User.find({ age: { $not: { $eq: 30 } } });
+  console.log(users);
+}
+
+logicalOperator();
