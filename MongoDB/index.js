@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, unique: true, lowercase: true },
   password: { type: String, required: true },
+  age: { type: Number, required: true },
   phone: { type: Number },
   hobbies: { type: [String] },
   isVerified: { type: Boolean, default: false },
@@ -25,6 +26,7 @@ async function createUser() {
     name: "Prasad Patil",
     email: "prasad@gmail.com",
     password: "def@123",
+    age: 34,
     phone: 9856449210,
     hobbies: ["Reading", "Tracking", "football"],
   });
@@ -77,4 +79,19 @@ async function sorting() {
   console.log(users);
 }
 
-sorting();
+// sorting();
+
+//Comparison operator ($gt,$gte,$lt,$lte,$eq,$ne,$in,$nin)
+async function fetchDataByAge() {
+  // const users = await User.find({ age: { $gte: 30 } });
+  // const users = await User.find({ age: { $lte: 30 } });
+
+  //$in operator
+  // const users = await User.find({ age: { $in: [28, 34] } });
+
+  //$nin operator
+  const users = await User.find({ age: { $nin: [28, 34] } });
+  console.log(users);
+}
+
+fetchDataByAge();
