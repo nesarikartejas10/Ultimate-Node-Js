@@ -127,8 +127,14 @@ async function logicalOperator() {
 
   // const users = await User.find({ email: /gmail\.com$/i }); // email ends with ''gmail.com' and i for case insensitive
 
-  const users = await User.find({ name: /asad/i }); //name contains word 'asad'
-  console.log(users);
+  // const users = await User.find({ name: /asad/i }); //name contains word 'asad'
+
+  //Count and estimate document count
+  const count = await User.countDocuments({ name: /\bpatil\b/i }); //exact count documents that name contains 'patil'
+  console.log(count);
+
+  const estimatedCount = await User.estimatedDocumentCount(); //Approximate document count
+  console.log(estimatedCount);
 }
 
 logicalOperator();
