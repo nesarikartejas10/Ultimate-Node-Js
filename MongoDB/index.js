@@ -119,7 +119,15 @@ async function logicalOperator() {
   //4.$not=> not operator works with comparison operator and regular expression
 
   // e.g=>whose age is not equal to 30
-  const users = await User.find({ age: { $not: { $eq: 30 } } });
+  // const users = await User.find({ age: { $not: { $eq: 30 } } });
+
+  //Regular Expression
+  // const users = await User.find({ name: /^P/ }); //name starts with 'P'
+  // const users = await User.find({ name: /l$/ }); //name ends with 'l'
+
+  // const users = await User.find({ email: /gmail\.com$/i }); // email ends with ''gmail.com' and i for case insensitive
+
+  const users = await User.find({ name: /asad/i }); //name contains word 'asad'
   console.log(users);
 }
 
