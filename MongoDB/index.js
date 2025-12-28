@@ -172,3 +172,10 @@ async function updateUser() {
 }
 
 // updateUser();
+
+//* delete methods (deleteOne(),deleteMany(),findByIdAndDelete(), findOneAndDelete())
+async function deleteUser() {
+  const user = await User.deleteOne({ name: "Prachi" });
+  console.log(user);
+}
+// deleteUser();
