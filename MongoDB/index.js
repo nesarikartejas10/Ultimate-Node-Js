@@ -102,39 +102,38 @@ async function logicalOperator() {
   // const users = await User.find({
   //   $or: [{ age: 30 }, { name: "Prasad Patil" }],
   // });
-
   //2.$and=>if all conditions match return data
   // const users = await User.find({
   //   $and: [{ age: 33 }, { name: "Prachi Patil" }],
   // });
-
   //or
   // const users = await User.find({ age: 33, name: "Prachi Patil" });
-
   //3.$nor=>return documents that fail to match all of the specified conditions
   // const users = await User.find({
   //   $nor: [{ age: 30 }, { name: "Prasad Patil" }],
   // });
-
   //4.$not=> not operator works with comparison operator and regular expression
-
   // e.g=>whose age is not equal to 30
   // const users = await User.find({ age: { $not: { $eq: 30 } } });
-
   //Regular Expression
   // const users = await User.find({ name: /^P/ }); //name starts with 'P'
   // const users = await User.find({ name: /l$/ }); //name ends with 'l'
-
   // const users = await User.find({ email: /gmail\.com$/i }); // email ends with ''gmail.com' and i for case insensitive
-
   // const users = await User.find({ name: /asad/i }); //name contains word 'asad'
+  //#Count and estimate document count
+  // const count = await User.countDocuments({ name: /\bpatil\b/i }); //exact count documents that name contains 'patil'
+  // console.log(count);
+  // const estimatedCount = await User.estimatedDocumentCount(); //Approximate document count
+  // console.log(estimatedCount);
+  //#Pagination & Infinite Scrolling in MongoDB
 
-  //Count and estimate document count
-  const count = await User.countDocuments({ name: /\bpatil\b/i }); //exact count documents that name contains 'patil'
-  console.log(count);
+  const currentPage = 1;
+  const perPageData = 4;
 
-  const estimatedCount = await User.estimatedDocumentCount(); //Approximate document count
-  console.log(estimatedCount);
+  const users = await User.find()
+    .skip((currentPage - 1) * perPageData)
+    .limit(perPageData);
+  console.log(users);
 }
 
 logicalOperator();
