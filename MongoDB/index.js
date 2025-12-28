@@ -65,7 +65,7 @@ async function getSpecificField() {
 
 // getSpecificField();
 
-//limit and skip
+//*limit and skip
 async function fetchSpecificDocument() {
   const users = await User.find().limit(2).skip(2);
   console.log(users);
@@ -81,7 +81,7 @@ async function sorting() {
 
 // sorting();
 
-//Comparison operator ($gt,$gte,$lt,$lte,$eq,$ne,$in,$nin)
+//*Comparison operator ($gt,$gte,$lt,$lte,$eq,$ne,$in,$nin)
 async function fetchDataByAge() {
   // const users = await User.find({ age: { $gte: 30 } });
   // const users = await User.find({ age: { $lte: 30 } });
@@ -96,44 +96,79 @@ async function fetchDataByAge() {
 
 // fetchDataByAge();
 
-//Logical Operator ($or, $and, $nor, $not)
+//*Logical Operator ($or, $and, $nor, $not)
 async function logicalOperator() {
-  //1.$or=>if any one condition match return data
+  //? 1.$or=>if any one condition match return data
   // const users = await User.find({
   //   $or: [{ age: 30 }, { name: "Prasad Patil" }],
   // });
-  //2.$and=>if all conditions match return data
+  //?2.$and=>if all conditions match return data
   // const users = await User.find({
   //   $and: [{ age: 33 }, { name: "Prachi Patil" }],
   // });
   //or
   // const users = await User.find({ age: 33, name: "Prachi Patil" });
-  //3.$nor=>return documents that fail to match all of the specified conditions
+  //?3.$nor=>return documents that fail to match all of the specified conditions
   // const users = await User.find({
   //   $nor: [{ age: 30 }, { name: "Prasad Patil" }],
   // });
-  //4.$not=> not operator works with comparison operator and regular expression
+  //?4.$not=> not operator works with comparison operator and regular expression
   // e.g=>whose age is not equal to 30
   // const users = await User.find({ age: { $not: { $eq: 30 } } });
-  //Regular Expression
+  //*Regular Expression
   // const users = await User.find({ name: /^P/ }); //name starts with 'P'
   // const users = await User.find({ name: /l$/ }); //name ends with 'l'
   // const users = await User.find({ email: /gmail\.com$/i }); // email ends with ''gmail.com' and i for case insensitive
   // const users = await User.find({ name: /asad/i }); //name contains word 'asad'
-  //#Count and estimate document count
+  //*Count and estimate document count
   // const count = await User.countDocuments({ name: /\bpatil\b/i }); //exact count documents that name contains 'patil'
   // console.log(count);
   // const estimatedCount = await User.estimatedDocumentCount(); //Approximate document count
   // console.log(estimatedCount);
-  //#Pagination & Infinite Scrolling in MongoDB
+}
+// logicalOperator();
 
+//* Pagination & Infinite Scrolling in MongoDB
+async function pagination() {
   const currentPage = 1;
   const perPageData = 4;
-
   const users = await User.find()
     .skip((currentPage - 1) * perPageData)
     .limit(perPageData);
   console.log(users);
 }
 
-logicalOperator();
+// pagination();
+
+//* Update data in mongoDB
+
+async function updateUser() {
+  //?updateOne()=>only update one document and it does not return updated document
+  // const user = await User.updateOne(
+  //   { name: "Soham Nesarikar" },
+  //   { $set: { name: "Soham", email: "sohamupdate@gmail.com" } }
+  // );
+
+  //?findOneAndUpdate()=> update one document and it return updated document
+  // const user = await User.findOneAndUpdate(
+  //   { name: "Tejas Nesarikar" },
+  //   { $set: { name: "Tejas", email: "tejasupdate@gmail.com" } },
+  //   { new: true, runValidators: true }
+  // );
+
+  //?findByIdAndUpdate()=> update one document based on id and it return updated document
+  // const user = await User.findByIdAndUpdate(
+  //   "694f3751b925425382e37cf0",
+  //   { $set: { name: "Prachi", email: "prachiupdate@gmail.com" } },
+  //   { new: true, runValidators: true }
+  // );
+
+  //?updateMany()=>update all document based on condition and it does not return updated document
+  const user = await User.updateMany(
+    { age: 34 },
+    { $set: { name: "Prasad", email: "prasadupdate@gmail.com" } }
+  );
+  console.log(user);
+}
+
+// updateUser();
