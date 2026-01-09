@@ -18,7 +18,15 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   age: { type: Number, required: true },
   phone: { type: Number },
-  hobbies: { type: [String] },
+  hobbies: {
+    type: [String],
+    validate: {
+      validator: (v) => {
+        return typeof v === "array" && v.length > 1;
+      },
+      message: "Please enter atleast two hobbies",
+    },
+  },
   isVerified: { type: Boolean, default: false },
   role: { type: String, enum: ["user", "admin"] },
 });
@@ -31,11 +39,11 @@ async function createUser() {
   try {
     const newUser = new User({
       // name: "Prasad Patil",
-      email: "prasad@gmail.com",
+      email: "prasad1@gmail.com",
       password: "def@123",
       age: 34,
       phone: 9856449210,
-      hobbies: ["Reading", "Tracking", "football"],
+      hobbies: null,
     });
 
     const storeUserData = await newUser.save();
