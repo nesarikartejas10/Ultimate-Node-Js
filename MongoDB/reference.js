@@ -42,12 +42,12 @@ async function createPost(content, user) {
 }
 
 async function getPosts() {
-  const posts = await Post.find();
+  const posts = await Post.find().populate("user", "-age");
   console.log(posts);
 }
 
 // createUser("Tejas", "code@gmail.com", 25);
 
-createPost("Content 2", "696068b640cfac98d6a68f79");
+// createPost("Content 2", "696068b640cfac98d6a68f79");
 
-// getPosts();
+getPosts();
