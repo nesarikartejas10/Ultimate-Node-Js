@@ -14,15 +14,32 @@ const userSchema = new mongoose.Schema({
 const postSchema = new mongoose.Schema({
   content: String,
   date: { type: Date, default: Date.now },
-  user: userSchema,
+  userSummary: {
+    name: String,
+    profulePicture: String,
+  },
+  userRef: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
 });
 
+const User = mongoose.model("User", userSchema);
 const Post = mongoose.model("Post", postSchema);
 
-async function createPost(content, user) {
+async function createUser(name, email, age) {
+  const newUser = new User({
+    name: name,
+    email: email,
+    age: age,
+  });
+
+  await newUser.save();
+  console.log(newUser);
+}
+
+async function createPost(content, user, userId) {
   const newPost = new Post({
     content: content,
-    user: user,
+    userSummary: user,
+    userRef: userId,
   });
 
   await newPost.save();
@@ -34,10 +51,12 @@ async function getPosts() {
   console.log(posts);
 }
 
-createPost("Content 45", {
-  name: "Soham",
-  email: "soham@gmail.com",
-  age: 30,
-});
+// createUser("Code Bless You", "code@gmail.com", 25);
+
+createPost(
+  "Content 50",
+  { name: "Prachi", profulePicture: "profile.jpg" },
+  "696068b640cfac98d6a68f79"
+);
 
 // getPosts();
