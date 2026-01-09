@@ -8,13 +8,19 @@ mongoose
 
 //define schema
 const userSchema = new mongoose.Schema({
-  name: { type: String, required: true },
+  name: {
+    type: String,
+    required: [true, "Please enter the user name"],
+    minLength: 3,
+    maxLength: 30,
+  },
   email: { type: String, unique: true, lowercase: true },
   password: { type: String, required: true },
   age: { type: Number, required: true },
   phone: { type: Number },
   hobbies: { type: [String] },
   isVerified: { type: Boolean, default: false },
+  role: { type: String, enum: ["user", "admin"] },
 });
 
 //creating mongodb model
@@ -22,18 +28,23 @@ const User = mongoose.model("User", userSchema);
 
 //create user
 async function createUser() {
-  const newUser = new User({
-    name: "Prasad Patil",
-    email: "prasad@gmail.com",
-    password: "def@123",
-    age: 34,
-    phone: 9856449210,
-    hobbies: ["Reading", "Tracking", "football"],
-  });
+  try {
+    const newUser = new User({
+      // name: "Prasad Patil",
+      email: "prasad@gmail.com",
+      password: "def@123",
+      age: 34,
+      phone: 9856449210,
+      hobbies: ["Reading", "Tracking", "football"],
+    });
 
-  const storeUserData = await newUser.save();
+    const storeUserData = await newUser.save();
+    console.log(storeUserData);
+  } catch (error) {
+    console.log(error.message);
+  }
 }
-// createUser();
+createUser();
 
 //fetch all users
 async function getUsers() {
