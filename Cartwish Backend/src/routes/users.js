@@ -1,5 +1,6 @@
 import express from "express";
 import User from "../model/users.js";
+import bcrypt from "bcrypt";
 
 const router = express.Router();
 
@@ -15,10 +16,12 @@ router.post("/", async (req, res) => {
       .json({ message: "User already exist with this email." });
   }
 
+  const hashedPassword = await bcrypt.hash(password, 10);
+
   const newUser = new User({
     name: name,
     email: email,
-    password: password,
+    password: hashedPassword,
     deliveryAddress: deliveryAddress,
   });
 
