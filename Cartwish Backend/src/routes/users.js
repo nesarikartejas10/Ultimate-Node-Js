@@ -1,4 +1,6 @@
 import express from "express";
+import dotenv from "dotenv";
+dotenv.config();
 import User from "../model/users.js";
 import bcrypt from "bcrypt";
 import Joi from "joi";
@@ -46,7 +48,7 @@ router.post("/", async (req, res) => {
 
   const token = jwt.sign(
     { _id: newUser._id, name: newUser.name },
-    "jwtSecurityKey",
+    process.env.JWT_KEY,
     { expiresIn: "2h" }
   );
 
