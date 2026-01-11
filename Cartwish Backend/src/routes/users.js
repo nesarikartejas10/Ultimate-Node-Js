@@ -1,10 +1,9 @@
 import express from "express";
-import dotenv from "dotenv";
-dotenv.config();
 import User from "../model/users.js";
 import bcrypt from "bcrypt";
 import Joi from "joi";
 import jwt from "jsonwebtoken";
+import authMiddleware from "../middleware/auth.js";
 
 const router = express.Router();
 
@@ -73,6 +72,12 @@ router.post("/login", async (req, res) => {
   res
     .status(201)
     .json({ message: "User login successfully.", user, token: token });
+});
+
+//protected route
+router.get("/", authMiddleware, async (req, res) => {
+  const user = await User.findOne({ _id: req.user._id }).select("-password");
+  res.status(200).json(user);
 });
 
 //generate jwt token
