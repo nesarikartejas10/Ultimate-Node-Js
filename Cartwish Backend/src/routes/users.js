@@ -2,6 +2,7 @@ import express from "express";
 import User from "../model/users.js";
 import bcrypt from "bcrypt";
 import Joi from "joi";
+import jwt from "jsonwebtoken";
 
 const router = express.Router();
 
@@ -43,7 +44,14 @@ router.post("/", async (req, res) => {
 
   await newUser.save();
 
-  res.status(201).json({ message: "User register successfully.", newUser });
+  const token = jwt.sign(
+    { _id: newUser._id, name: newUser.name },
+    "jwtSecurityKey"
+  );
+
+  res
+    .status(201)
+    .json({ message: "User register successfully.", newUser, token: token });
 });
 
 export default router;
