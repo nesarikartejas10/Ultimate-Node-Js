@@ -46,6 +46,8 @@ app.get("/destroy", (req, res) => {
     if (err) {
       return res.status(500).send("Failed to destroy session");
     }
+
+    res.clearCookie("connect.sid");
     res.send("Session destroy successfuly");
   });
 });
