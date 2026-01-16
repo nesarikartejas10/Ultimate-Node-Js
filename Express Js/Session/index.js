@@ -12,6 +12,7 @@ app.use(
   })
 );
 
+//Home route
 app.get("/", (req, res) => {
   if (!req.session.username) {
     return res.send("Username is not found in session!!");
@@ -31,6 +32,16 @@ app.get("/get-username", (req, res) => {
     return res.send("Username is not found in session!!");
   }
   res.send(`Username from session is: ${req.session.username}`);
+});
+
+//destroy session
+app.get("/destroy", (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).send("Failed to destroy session");
+    }
+    res.send("Session destroy successfuly");
+  });
 });
 
 const PORT = process.env.PORT || 3000;
