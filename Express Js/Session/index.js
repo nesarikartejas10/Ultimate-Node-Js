@@ -25,6 +25,14 @@ app.get("/set-username", (req, res) => {
   res.send("Session is created successfully");
 });
 
+//read session
+app.get("/get-username", (req, res) => {
+  if (!req.session.username) {
+    return res.send("Username is not found in session!!");
+  }
+  res.send(`Username from session is: ${req.session.username}`);
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`server is running on: http://localhost:${PORT}`);
